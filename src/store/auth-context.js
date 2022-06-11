@@ -8,15 +8,18 @@ const AuthContext = React.createContext({
 });
 
 export const AuthContextProvider = (props) => {
-  const [token, setToken] = useState(null);
+  const initialState = localStorage.getItem("token");
+  const [token, setToken] = useState(initialState);
 
   const userIsLoggedIn = !!token; // return true if token is a string, false if token is null
 
   const loginHandler = (token) => {
+    localStorage.setItem("token", token);
     setToken(token);
   };
 
   const logoutHandler = () => {
+    localStorage.removeItem("token");
     setToken(null);
   };
 
